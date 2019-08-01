@@ -1,0 +1,39 @@
+{
+  "name": "boilerplate-node-api",
+  "version": "1.0.0",
+  "description": "This boilerplate uses NodeJs with Express as API Framework, JWT as authentication and Objection as ORM. All wrapped with Typescript support",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node app.js",
+    "build": "tsc",
+    "knex": "dotenv knex --knexfile=./build/knex_file.js -- "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giuliano-sev/boilerplate-node-api.git"
+  },
+  "author": "github/giuliano-sev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giuliano-sev/boilerplate-node-api/issues"
+  },
+  "homepage": "https://github.com/giuliano-sev/boilerplate-node-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.1",
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1",
+    "node-password-util": "^1.0.1",
+    "objection": "^1.6.9"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.5",
+    "@types/express": "^4.17.0",
+    "@types/jsonwebtoken": "^8.3.2",
+    "dotenv-cli": "^2.0.1",
+    "typescript": "^3.5.3"
+  }
+}

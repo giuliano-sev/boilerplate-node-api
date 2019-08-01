@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "es2016",
+		"outDir": "build",
+		"allowJs": true,
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*.ts", "migrations/**/*.js", "server.ts", "knex_file.ts"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
+}
