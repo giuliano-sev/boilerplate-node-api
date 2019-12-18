@@ -1,7 +1,16 @@
 // Global types are declared here
 
+// Auth
 export type JWTUserClaims = {
-    user_id: number;
-    username: string;
-    issue_timestamp: string;
-}
+	userId: number;
+	username: string;
+	issueTimestamp: string;
+};
+
+// Pagination
+export type PaginationMetadata = {
+	page: number;
+	pageSize: number;
+	totalPages: number;
+	totalRecords: number;
+};

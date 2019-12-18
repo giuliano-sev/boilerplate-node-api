@@ -1,34 +1,42 @@
-import {Model} from 'objection';
-import * as knex_config from './knex_file';
+import {Sequelize} from 'sequelize-typescript';
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import * as Knex from 'knex';
+import * as dbConfig from './db-config';
 
-import routes from './routes';
+import routes_v1 from './controllers/v1/_routes';
 import env from './cross-cutting/env';
 
-export const start = () => {
-    const app = express();
-    const port = env.APP_PORT;
+// App kickstarter. This is the place where:
+// - DB connection is created
+// - App Server is configured spun up
+// - Cronjobs are started
 
-    // DB Setup
-	const knex = Knex(knex_config);
+export const start = async () => {
+	try{
+		// DB Setup
+		await new Sequelize(dbConfig).authenticate();
+		console.log('Connection to the DB has been established successfully');
 
-	Model.knex(knex);
-    knex.migrate.latest([knex_config] as any);
+		const app = express();
+		const port = env.APP_PORT;
 
-	app.use(cors());
-	app.use(bodyParser.urlencoded({extended: true}));
-	app.use(bodyParser.json());
+		// Setup CORS
+		app.use(cors());
 
-	routes(app);
+		// Setup Parser Middleware
+		app.use(bodyParser.urlencoded({extended: true}));
+		app.use(bodyParser.json());
 
-    // If a value is returned as undefined, null is put in its place
-	app.set(`json replacer`, (key, value) => (typeof value === `undefined` ? null : value));
+		// Setup App routes
+		routes_v1(app);
 
-	app.listen(port);
+		// Start listening
+		app.listen(port);
 
-	console.log(`Server started on: ` + port);
-}
+		console.log(`Server started on: ` + port);
+	}catch(err){
+		console.error(err);
+	}
+};

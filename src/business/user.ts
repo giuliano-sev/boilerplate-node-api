@@ -1,8 +1,7 @@
-import db_factory from '../data-access'
-import env, {APP_MODE} from '../cross-cutting/env';
+import {User} from '../database/models/user';
 
-const db = db_factory(env.APP_MODE === APP_MODE.MOCK);
+export const getById = async (id: number): Promise<User> => await User.findByPk(id);
 
-export const get_by_username = async (username: string) => 
-    await db.user.get_by_username(username);
+export const getByUsername = async (username: string): Promise<User> => await User.findOne({where: {username}});
 
+export const getUsers = async (): Promise<User[]> => await User.findAll();

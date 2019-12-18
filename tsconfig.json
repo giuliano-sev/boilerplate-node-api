@@ -6,7 +6,8 @@
 		"target": "es2016",
 		"outDir": "build",
 		"allowJs": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"experimentalDecorators": true
 	},
 	"include": ["src/**/*.ts", "migrations/**/*.js", "server.ts", "knex_file.ts"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
