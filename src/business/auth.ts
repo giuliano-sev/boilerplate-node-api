@@ -31,8 +31,12 @@ export const login = async (username: string, password: string): Promise<{jwt: s
 	};
 
 	return {
-		jwt: jwt.sign(claims, env.JWT_PASSPHRASE),
+		jwt: jwt.sign(claims, env.JWT_PASSPHRASE, {expiresIn: env.JWT_PASSPHRASE + 'h'}),
 	};
+};
+
+export const verifyJwt = (userJwt: string): JWTUserClaims => {
+	return jwt.verify(userJwt, env.JWT_PASSPHRASE) as JWTUserClaims;
 };
 
 const isCorrectPassword = (password: string, hashedPassword: string): boolean => {

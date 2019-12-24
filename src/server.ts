@@ -5,12 +5,12 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as dbConfig from './db-config';
 
-import routes_v1 from './controllers/v1/_routes';
+import routes from './controllers';
 import env from './cross-cutting/env';
 
 // App kickstarter. This is the place where:
 // - DB connection is created
-// - App Server is configured spun up
+// - App Server is configured and spun up
 // - Cronjobs are started
 
 export const start = async () => {
@@ -30,7 +30,7 @@ export const start = async () => {
 		app.use(bodyParser.json());
 
 		// Setup App routes
-		routes_v1(app);
+		routes(app);
 
 		// Start listening
 		app.listen(port);

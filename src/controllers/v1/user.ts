@@ -1,9 +1,10 @@
-import {Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {response, ApiResponse} from '../../cross-cutting/responder';
+import {validateUser, validateUserRoles} from './middleware';
 
 import business from '../../business';
 
-export const getUsers = async (req: Request, res: Response): Promise<ApiResponse> => {
+const getUsers = async (req: Request, res: Response): Promise<ApiResponse> => {
 	try{
 		const users = await business.user.getUsers();
 
@@ -12,4 +13,8 @@ export const getUsers = async (req: Request, res: Response): Promise<ApiResponse
 		console.error(err);
 		return response.internal(res, err);
 	}
+};
+
+export const userRoutes = (router: Router): void => {
+	router.route('/user').get(validateUser, validateUserRoles(['admin']), getUsers);
 };
